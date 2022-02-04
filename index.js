@@ -19,9 +19,11 @@ app.use(
 app.use(express.json());
 
 // routes
-const personRoutes = require('./routes/person');
+const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
 
-app.use('/person', personRoutes);
+app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (request, response) => {
   response.json({ message: 'Server running!' });
