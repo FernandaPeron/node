@@ -39,9 +39,9 @@ router.post(
 
     try {
       await User.create(user);
-      response.status(200).json('User successfully registered');
+      response.status(200).json({ message: 'User successfully registered' });
     } catch (error) {
-      response.status(500).json(error.message);
+      response.status(500).json({ message: error.message });
     }
 });
 
@@ -62,14 +62,14 @@ router.post(
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      response.status(422).json('This e-mail does not exist in our database');
+      response.status(422).json({ message: 'This e-mail does not exist in our database' });
       return;
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
-      response.status(422).json('Invalid password');
+      response.status(422).json({ message: 'Invalid password' });
       return;
     }
 
@@ -78,7 +78,7 @@ router.post(
 
       response.status(200).json(token);
     } catch (error) {
-      response.status(500).json(error.message);
+      response.status(500).json({ message: error.message });
     }
 });
 

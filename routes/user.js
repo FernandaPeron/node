@@ -9,7 +9,7 @@ router.get('/', checkToken, async (request, response) => {
 
     response.status(200).json(users)
   } catch (error) {
-    response.status(500).json(error.message);
+    response.status(500).json({ message: error.message });
   }
 });
 
@@ -26,7 +26,7 @@ router.get('/:id', checkToken, async (request, response) => {
 
     response.status(200).json(user);
   } catch (error) {
-    response.status(500).json(error.message);
+    response.status(500).json({ message: error.message });
   }
 });
 
@@ -49,7 +49,7 @@ router.patch('/:id', checkToken, async (request, response) => {
     response.status(200).json(updatedUser);
 
   } catch (error) {
-    response.status(500).json(error.message);
+    response.status(500).json({ message: error.message });
   }
 });
 
@@ -69,7 +69,7 @@ router.delete('/:id', checkToken, async (request, response) => {
 
     response.status(200).json({ message: 'User removed' });
   } catch (error) {
-    response.status(500).json(error.message);
+    response.status(500).json({ message: error.message });
   }
 });
 
