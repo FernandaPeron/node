@@ -19,6 +19,17 @@ function checkToken(req, res, next) {
 
 }
 
+function generateToken(user) {
+  const secret = process.env.SECRET;
+  return jwt.sign(
+    {
+      id: user._id,
+    },
+    secret,
+  );
+}
+
 module.exports = {
   checkToken,
+  generateToken,
 };
