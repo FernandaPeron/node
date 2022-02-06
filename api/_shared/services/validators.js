@@ -1,5 +1,6 @@
-const { check } = require('express-validator');
-const User = require('../models/user');
+const { check, validationResult } = require('express-validator');
+const User = require('../../user/model');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 function validateEmailUsage() {
   return check('email').custom((value) => {
@@ -32,10 +33,31 @@ function validatePasswordConfirmation() {
   });
 }
 
+function validateObjectId(field) {
+  return check(field).custom((value) => {
+    return ObjectId.isValid(value);
+  }).withMessage('Invalid parameter');
+}
+
+function commitValidation(req, res, next) {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  }
+  const extractedErrors = []
+  errors.array().forEach(err => extractedErrors.push(err.msg))
+
+  return res.status(422).json({
+    errors: extractedErrors,
+  })
+}
+
 module.exports = {
   validateEmailUsage,
   validateEmail,
   validateEmptyField,
   validateMinChars,
   validatePasswordConfirmation,
+  validateObjectId,
+  commitValidation,
 };
