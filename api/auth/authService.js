@@ -8,7 +8,8 @@ function checkToken(req, res, next) {
   const token = req.headers['authorization'];
 
   if (!token) {
-    res.status(401).json('not authorized');
+    res.status(401).json({ errors: ['not authorized'] });
+    return;
   }
 
   try {
@@ -18,7 +19,7 @@ function checkToken(req, res, next) {
 
     next();
   } catch (error) {
-    res.status(400).json('Invalid token');
+    res.status(400).json({ errors: ['Invalid token'] });
   }
 
 }

@@ -49,7 +49,7 @@ router.patch(
     };
 
     try {
-      const updatedUser = UserService.updateUser(id, user, response);
+      const updatedUser = await UserService.updateUser(id, user, response);
 
       response.status(200).json(updatedUser);
 
